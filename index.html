@@ -145,6 +145,19 @@
         transform: scale(1);
       }
     }
+
+    /* Estilo do contador */
+    .contador {
+      font-size: 1rem;
+      color: #b04e6b;
+      font-weight: 600;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 6px 12px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
 </head>
@@ -157,9 +170,12 @@
     </div>
   </div>
 
+  <!-- Contador -->
+  <div id="countdown" class="contador"></div>
+
   <img src="casal.jpg" alt="Foto do casal" class="foto-casal">
 
-</br>  <h1>🌹 Giovana e Wenderson ⚡</h1> </br>
+  <h1>🌹 Giovana e Wenderson ⚡</h1>
 
   <div class="qr-container">
     <video id="video" muted playsinline></video>
@@ -170,11 +186,12 @@
   <div class="intro-container">
     <p>⛪ Estamos muito felizes em compartilhar este momento especial com você.<br>Nosso casamento será o início de uma linda jornada juntos.<br>Venha celebrar com a gente! 💍</p>
   </div>
-</br>
+
   <footer>
     💍 Com amor, Giovana & Wenderson — Unidos para sempre 💖
   </footer>
 
+  <!-- QR Scanner -->
   <script type="module">
     import QrScanner from 'https://cdn.jsdelivr.net/npm/qr-scanner@1.4.2/qr-scanner.min.js';
 
@@ -198,13 +215,41 @@
     scanner.start();
   </script>
 
+  <!-- Popup -->
   <script>
     window.addEventListener('load', () => {
       const popup = document.getElementById('popup');
       setTimeout(() => {
         popup.style.display = 'none';
-      }, 3000); // 3 segundos
+      }, 5000);
     });
+  </script>
+
+  <!-- Contador -->
+  <script>
+    const casamentoData = new Date('2025-11-08T17:00:00');
+
+    function atualizarContagem() {
+      const agora = new Date();
+      const diff = casamentoData - agora;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '💍 O grande dia chegou!';
+        clearInterval(intervalo);
+        return;
+      }
+
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diff / (1000 * 60)) % 60);
+      const segundos = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('countdown').innerHTML =
+        `Faltam ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos para o nosso grande dia 💖`;
+    }
+
+    atualizarContagem();
+    const intervalo = setInterval(atualizarContagem, 1000);
   </script>
 
 </body>
